@@ -1,0 +1,107 @@
+<%- include('./layout/Header.ejs') %>
+
+<!-- Main Sidebar Container -->
+<%- include('./layout/Sidebar.ejs') %>
+
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+  <!-- Content Header (Page header) -->
+  <section class="content-header">
+    <div class="container-fluid">
+      <div class="row mb-2">
+        <div class="col-sm-6">
+          <h1>Category</h1>
+        </div>
+        <div class="col-sm-6">
+          <ol class="breadcrumb float-sm-right">
+            <li class="breadcrumb-item"><a href="#">Home</a></li>
+            <li class="breadcrumb-item active">Category</li>
+          </ol>
+        </div>
+      </div>
+    </div><!-- /.container-fluid -->
+  </section>
+
+  <!-- Main content -->
+  <section class="content">
+    <div class="container-fluid">
+      <div class="row">
+        <!-- Left column -->
+        <div class="col-md-6">
+          <!-- General form elements -->
+          <div class="card card-primary">
+            <div class="card-header">
+              <h3 class="card-title">Quick Example</h3>
+            </div>
+            <!-- /.card-header -->
+            <!-- Form start -->
+            <form method="post" action="/category" enctype="multipart/form-data">
+              <input type="hidden" name="catid" id="catid" value="<%= editcat ? editcat._id : '' %>">
+              <div class="card-body">
+                <div class="form-group">
+                  <label for="exampleInputEmail1">Category Name</label>
+                  <input type="text" class="form-control" id="exampleInputEmail1" name="catname"
+                    placeholder="Enter Category" value="<%= editcat ? editcat.name : '' %>">
+                </div>
+                <div class="form-group">
+                  <label for="exampleInputEmail1">Image</label>
+                  <input type="file"  name="image"> 
+                </div>
+              </div>
+              <div class="card-footer">
+                <button type="submit" class="btn btn-primary">Submit</button>
+              </div>
+            </form>
+          </div>
+          <!-- /.card -->
+        </div>
+        <!--/.col (left) -->
+
+        <!-- Right column -->
+        <div class="col-md-6">
+          <!-- Category list -->
+          <div class="card">
+            <div class="card-header">
+              <h3 class="card-title">Category List</h3>
+            </div>
+            <!-- /.card-header -->
+            <div class="card-body">
+              <table class="table table-bordered">
+                <thead>
+                  <tr>
+                    <th style="width: 10px">#</th>
+                    <th>Image</th>
+                    <th>Category</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <% if(allcat) { %>
+                    <% allcat.forEach((i, index) => { %>
+                      <tr>
+                        <td><%= index + 1 %></td>
+                        <td><img src="/uploads/<%= i.image %>" height="50px" width="50px" alt="No image"></td>
+                        <td><%= i.name %></td>
+
+                        <td>
+                          <a class="btn btn-info" href="/editcat/<%= i._id %>">Edit</a>
+                          <a class="btn btn-danger" href="/deleteCat/<%= i._id %>">Delete</a>
+                        </td>
+                      </tr>
+                    <% }) %>
+                  <% } %>
+                </tbody>
+              </table>
+            </div>
+            <!-- /.card-body -->
+          </div>
+        </div>
+        <!--/.col (right) -->
+      </div>
+      <!-- /.row -->
+    </div><!-- /.container-fluid -->
+  </section>
+  <!-- /.content -->
+</div>
+
+<%- include('./layout/Footer.ejs') %>
