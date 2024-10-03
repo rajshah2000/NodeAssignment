@@ -1,0 +1,29 @@
+<!-- views/products.ejs -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Products List</title>
+    <link rel="stylesheet" href="/styles.css"> <!-- Link to your CSS -->
+</head>
+<body>
+    <div class="container">
+        <h1>Products List</h1>
+        <a href="/products/add">Add New Product</a>
+        <ul>
+            <% products.forEach(product => { %>
+                <li>
+                    <strong><%= product.name %></strong> - $<%= product.price %>
+                    <p><%= product.description %></p>
+                    <p>Category: <%= product.category %> | Stock: <%= product.stock %></p>
+                    
+                    <!-- Edit and Delete buttons -->
+                    <a href="/products/<%= product._id %>/edit">Edit</a>
+                    <form action="/products/<%= product._id %>?_method=DELETE" method="POST" style="display:inline;">
+                        <button type="submit">Delete</button>
+                    </form>
+                </li>
+            <% }) %>
+        </ul>
+    </div>
+</body>
+</html>
